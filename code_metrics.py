@@ -33,6 +33,8 @@ import glob
 import json
 import os
 import subprocess
+from functools import partial
+from multiprocessing import Pool
 
 HERE = os.path.dirname(os.path.realpath(__file__))
 TYPES = {
@@ -86,32 +88,50 @@ def get_commit(fpath):
     return {'commit': commit, 'date': date}
 
 
-def collect(project):
+def collect_all(project):
     """
     Collect all the metrics for the given project
     :param project: project root path
     :return: the list of metrics per file
     """
     metrics = []
+    pyfiles = []
 
     with within_dir(project):
-        for i, pyfile in enumerate(glob.glob(f'**/*.py',
-                                             recursive=True)):
-            print(f'\r{i}', end='')
+        pyfiles = glob.glob(f'**/*.py', recursive=True)
 
-            try:
-                metrics.append({
-                    'file': pyfile,
-                    **get_commit(pyfile),
-                    **get_value(f'radon raw -j {pyfile}'),
-                    **get_value(f'radon mi -j {pyfile}'),
-                    'cc': get_value(f'radon cc -j {pyfile}') or [],
-                })
-            except Exception:
-                print('\rfailed to get git hash of', pyfile)
-                continue
+    num_pools = max(os.cpu_count() - 1, 1)
+
+    with Pool(num_pools) as pool:
+        for i, result in enumerate(pool.imap_unordered(
+            partial(collect_metrics, project),
+            pyfiles
+        )):
+            print(f'\r{i}', end='')
+            if result:
+                metrics.append(result)
 
     return metrics
+
+
+def collect_metrics(project, pyfile):
+    """
+    Collect all the metrics for the python file in the project
+    :param project: project root path
+    :param pyfile: the python file
+    :return: the list of metrics per file
+    """
+    with within_dir(project):
+        try:
+            return {
+                'file': pyfile,
+                **get_commit(pyfile),
+                **get_value(f'radon raw -j {pyfile}'),
+                **get_value(f'radon mi -j {pyfile}'),
+                'cc': get_value(f'radon cc -j {pyfile}') or [],
+            }
+        except Exception:
+            print('\rfailed to get git hash of', pyfile)
 
 
 def save_metrics(data):
@@ -130,7 +150,7 @@ def main(project):
     :param project: the project root path
     """
     project = os.path.expanduser(project)
-    data = collect(project)
+    data = collect_all(project)
     save_metrics(data)
 
 
