@@ -1,5 +1,50 @@
 <div class="file-container">
     <div class="box">
-        {{ file | json }}
+        <div class="is-pulled-right">
+            <div class="field is-grouped is-grouped-multiline">
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag is-dark">
+                            Maintainability
+                        </span>
+                        <span class="tag"
+                              [class.is-success]="file.rank === 'A'"
+                              [class.is-warning]="file.rank === 'B'"
+                              [class.is-danger]="file.rank === 'C'">
+                            {{ file.rank }}
+                            ({{ file.mi | number:"0.0-0" }})
+                        </span>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <div class="tags has-addons">
+                        <span class="tag">
+                            Complexity
+                        </span>
+                        <span class="tag"
+                              [class.is-success]="file.cc_rank === 'A'"
+                              [class.is-primary]="file.cc_rank === 'B'"
+                              [class.is-link]="file.cc_rank === 'C'"
+                              [class.is-info]="file.cc_rank === 'D'"
+                              [class.is-warning]="file.cc_rank === 'E'"
+                              [class.is-danger]="file.cc_rank === 'F'">
+                            {{ file.cc_rank }}
+                            ({{ file.cc_value | number:"0.0-0" }})
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <strong>
+                {{ file.file }}
+            </strong>
+        </div>
+        <div>
+            <em>
+                {{ file.commit }} - {{ file.date }}
+            </em>
+        </div>
     </div>
 </div>
