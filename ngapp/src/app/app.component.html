@@ -1,2 +1,5 @@
-{{ files.slice(0, 3) | json }}
+<ng-container *ngFor="let file of files.slice(0, 5)">
+    <cm-file-item [file]="file"></cm-file-item>
+</ng-container>
+
 <router-outlet></router-outlet>
