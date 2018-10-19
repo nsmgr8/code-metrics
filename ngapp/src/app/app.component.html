@@ -1,5 +1,7 @@
-<ng-container *ngFor="let file of files.slice(0, 5)">
-    <cm-file-item [file]="file"></cm-file-item>
-</ng-container>
+<cdk-virtual-scroll-viewport itemSize="50" class="metrics-viewport">
+    <div *cdkVirtualFor="let file of files">
+        <cm-file-item [file]="file"></cm-file-item>
+    </div>
+</cdk-virtual-scroll-viewport>
 
 <router-outlet></router-outlet>
