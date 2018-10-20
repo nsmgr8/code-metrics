@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +22,8 @@ import { ComplexityItemComponent } from './complexity-item/complexity-item.compo
     imports: [
         BrowserModule,
         HttpClientModule,
+        OverlayModule,
+        PortalModule,
         ScrollingModule,
         AppRoutingModule
     ],

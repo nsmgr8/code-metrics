@@ -38,13 +38,8 @@
 
             <div class="tags">
                 <button class="button is-small is-outlined"
-                    (click)="file.show_cc = !file.show_cc">
-                    <span *ngIf="file.show_cc">
-                        Hide Cyclomatic Complexity
-                    </span>
-                    <span *ngIf="!file.show_cc">
-                        Show Cyclomatic Complexity
-                    </span>
+                        (click)="open()">
+                    Show Cyclomatic Complexity
                 </button>
             </div>
         </div>
@@ -59,9 +54,11 @@
             </em>
         </div>
 
-        <div class="complexity-container" *ngIf="file.show_cc">
-            <cm-file-detail [complexity]="file.cc"></cm-file-detail>
-        </div>
+        <ng-template cdk-portal #complexityTemplate="cdkPortal">
+            <div class="comlexity-detail">
+                <cm-file-detail [complexity]="file.cc"></cm-file-detail>
+            </div>
+        </ng-template>
 
     </div>
 </div>
