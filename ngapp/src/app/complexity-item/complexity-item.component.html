@@ -1,0 +1,73 @@
+<div class="item-container">
+    <div class="box">
+        <div class="is-pulled-right">
+            <div class="tags has-addons is-marginless">
+                <span class="tag">
+                    Complexity
+                </span>
+                <span class="tag"
+                      [class.is-success]="item.rank === 'A'"
+                      [class.is-primary]="item.rank === 'B'"
+                      [class.is-link]="item.rank === 'C'"
+                      [class.is-info]="item.rank === 'D'"
+                      [class.is-warning]="item.rank === 'E'"
+                      [class.is-danger]="item.rank === 'F'">
+                    {{ item.rank }}
+                    ({{ item.complexity | number:"0.0-0" }})
+                </span>
+            </div>
+        </div>
+
+        <div [ngSwitch]="item.type">
+            <div *ngSwitchCase="'function'">
+                <div class="tags has-addons">
+                    <span class="tag is-success">
+                        Function
+                    </span>
+                    <div class="tag">
+                        <strong>{{ item.name }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'class'">
+                <div class="tags has-addons">
+                    <span class="tag is-primary">
+                        Class
+                    </span>
+                    <div class="tag">
+                        <strong>{{ item.name }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'method'">
+                <div class="tags has-addons">
+                    <span class="tag is-link">
+                        Method
+                    </span>
+                    <div class="tag">
+                        <strong>{{ item.classname }}.{{ item.name }}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            Location:
+            <strong>
+                {{ item.lineno }} &ndash; {{ item.endline }}
+            </strong>
+
+            ({{ item.line_count }} lines long)
+        </div>
+
+        <div *ngIf="item.closures?.length">
+            No. of closures: <strong>{{ item.closures.length }}</strong>
+        </div>
+
+        <div *ngIf="item.methods?.length">
+            No. of methods: <strong>{{ item.methods.length }}</strong>
+        </div>
+    </div>
+</div>

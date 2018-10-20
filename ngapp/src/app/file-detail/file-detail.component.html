@@ -1,1 +1,6 @@
-{{ data | json }}
+<div class="complexity-container">
+    <div *ngFor="let item of data">
+        <cm-complexity-item [item]="item"></cm-complexity-item>
+    </div>
+</div>
+
