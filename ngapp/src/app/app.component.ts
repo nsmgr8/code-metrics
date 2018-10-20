@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { MetricsService } from './metrics.service';
 
@@ -18,6 +21,9 @@ export class AppComponent {
         // {key: 'ts', title: 'Last Modified'},
         {key: 'loc', title: 'Number of lines'},
     ];
+    query = '';
+
+    qCtrl = new FormControl();
 
     constructor(
         private metricsService: MetricsService
@@ -25,6 +31,14 @@ export class AppComponent {
         this.metricsService.getMetrics().subscribe(
             data => this.setData(data)
         );
+
+        this.qCtrl.valueChanges.pipe(
+            debounceTime(500),
+            distinctUntilChanged()
+        ).subscribe((query: string) => {
+            this.query = query;
+            this.orderData();
+        });
     }
 
     setData(data) {
@@ -50,7 +64,12 @@ export class AppComponent {
     }
 
     orderData() {
-        this.files = [...this._files.sort((a, b) => {
+        this.files = [...this._files.filter(x => {
+            if (!this.query) {
+                return true;
+            }
+            return x.file.includes(this.query);
+        }).sort((a, b) => {
             switch (this.order_by) {
                 case 'cc':
                     if (a.cc_value === b.cc_value) {
