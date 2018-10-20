@@ -43,15 +43,55 @@
                 </button>
             </div>
         </div>
+
         <div>
             <strong>
                 {{ file.file }}
             </strong>
         </div>
+
         <div>
             <em>
                 {{ file.commit }} - {{ file.date }}
             </em>
+        </div>
+
+        <div>
+            <div class="field is-grouped is-grouped-multiline">
+                <div class="control">
+                    <div class="tags has-addons is-marginless">
+                        <span class="tag">
+                            LOC
+                        </span>
+                        <span class="tag tag-value">
+                            {{ file.loc }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <div class="tags has-addons is-marginless">
+                        <span class="tag">
+                            LLOC
+                        </span>
+                        <span class="tag tag-value">
+                            {{ file.lloc }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="control">
+                    <div class="tags has-addons is-marginless">
+                        <span class="tag">
+                            Comments
+                        </span>
+                        <span class="tag tag-value">
+                            {{ file.comments }}
+                        </span>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <ng-template cdk-portal #complexityTemplate="cdkPortal">
