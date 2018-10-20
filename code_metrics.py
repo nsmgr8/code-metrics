@@ -83,7 +83,7 @@ def get_commit(fpath):
     :param fpath: the file path
     :return: dict of commit sha and commit date
     """
-    cmd = f'git log -1 --pretty="format:%h %ar" {fpath}'
+    cmd = f'git log -1 --pretty="format:%h %at" {fpath}'
     commit, date = run(cmd).split(None, 1)
     return {'commit': commit, 'date': date}
 

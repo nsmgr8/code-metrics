@@ -18,7 +18,7 @@ export class AppComponent {
     orders = [
         {key: 'cc', title: 'Complexity'},
         {key: 'mi', title: 'Maintainability'},
-        // {key: 'ts', title: 'Last Modified'},
+        {key: 'ts', title: 'Last Modified'},
         {key: 'loc', title: 'Number of lines'},
     ];
     query = '';
@@ -56,6 +56,7 @@ export class AppComponent {
 
             return {
                 ...x,
+                date: x.date * 1000,
                 cc_value: cc,
                 cc_rank: rank
             };
@@ -87,6 +88,10 @@ export class AppComponent {
                     }
                     return b.loc - a.loc;
                 case 'ts':
+                    if (a.date === b.date) {
+                        return b.cc_value - a.cc_value;
+                    }
+                    return b.date - a.date;
                 default:
                     return 0;
             }
