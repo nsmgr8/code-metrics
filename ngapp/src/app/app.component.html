@@ -8,8 +8,11 @@
     <div class="navbar-end">
         <div class="navbar-item">
             <div class="select">
-                <select id="" name="">
-                    <option value="cc_value">Complexity</option>
+                <select [(ngModel)]="order_by"
+                        (change)="onOrder($event.target.value)">
+                    <option *ngFor="let o of orders" [value]="o.key">
+                        {{ o.title }}
+                    </option>
                 </select>
             </div>
         </div>
