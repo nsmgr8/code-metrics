@@ -5,7 +5,7 @@
                 <span class="tag">
                     Complexity
                 </span>
-                <span class="tag"
+                <span class="tag tag-value"
                       [class.is-success]="item.rank === 'A'"
                       [class.is-primary]="item.rank === 'B'"
                       [class.is-link]="item.rank === 'C'"
@@ -18,36 +18,40 @@
             </div>
         </div>
 
-        <div [ngSwitch]="item.type">
-            <div *ngSwitchCase="'function'">
-                <div class="tags has-addons">
-                    <span class="tag is-success">
-                        Function
-                    </span>
-                    <div class="tag">
-                        <strong>{{ item.name }}</strong>
+        <div class="field is-grouped is-grouped-multiline">
+            <div class="control">
+                <div [ngSwitch]="item.type">
+                    <div *ngSwitchCase="'function'">
+                        <div class="tags has-addons">
+                            <span class="tag is-success">
+                                Function
+                            </span>
+                            <div class="tag tag-value">
+                                {{ item.name }}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div *ngSwitchCase="'class'">
-                <div class="tags has-addons">
-                    <span class="tag is-primary">
-                        Class
-                    </span>
-                    <div class="tag">
-                        <strong>{{ item.name }}</strong>
+                    <div *ngSwitchCase="'class'">
+                        <div class="tags has-addons">
+                            <span class="tag is-primary">
+                                Class
+                            </span>
+                            <div class="tag tag-value">
+                                {{ item.name }}
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div *ngSwitchCase="'method'">
-                <div class="tags has-addons">
-                    <span class="tag is-link">
-                        Method
-                    </span>
-                    <div class="tag">
-                        <strong>{{ item.classname }}.{{ item.name }}</strong>
+                    <div *ngSwitchCase="'method'">
+                        <div class="tags has-addons">
+                            <span class="tag is-link">
+                                Method
+                            </span>
+                            <div class="tag tag-value">
+                                {{ item.classname }}.{{ item.name }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
