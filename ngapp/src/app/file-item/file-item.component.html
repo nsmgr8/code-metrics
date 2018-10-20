@@ -3,7 +3,7 @@
         <div class="is-pulled-right">
             <div class="field is-grouped is-grouped-multiline">
                 <div class="control">
-                    <div class="tags has-addons">
+                    <div class="tags has-addons is-marginless">
                         <span class="tag is-dark">
                             Maintainability
                         </span>
@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="control">
-                    <div class="tags has-addons">
+                    <div class="tags has-addons is-marginless">
                         <span class="tag">
                             Complexity
                         </span>
@@ -35,6 +35,18 @@
                     </div>
                 </div>
             </div>
+
+            <div class="tags">
+                <button class="button is-small is-outlined"
+                    (click)="file.show_cc = !file.show_cc">
+                    <span *ngIf="file.show_cc">
+                        Hide Cyclomatic Complexity
+                    </span>
+                    <span *ngIf="!file.show_cc">
+                        Show Cyclomatic Complexity
+                    </span>
+                </button>
+            </div>
         </div>
         <div>
             <strong>
@@ -46,5 +58,10 @@
                 {{ file.commit }} - {{ file.date }}
             </em>
         </div>
+
+        <div class="complexity-container" *ngIf="file.show_cc">
+            <cm-file-detail [complexity]="file.cc"></cm-file-detail>
+        </div>
+
     </div>
 </div>
