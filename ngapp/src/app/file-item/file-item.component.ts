@@ -9,6 +9,7 @@ import { TemplatePortalDirective } from '@angular/cdk/portal';
 })
 export class FileItemComponent {
     @Input() file;
+    @Input() even;
 
     @ViewChild('complexityTemplate') complexityTemplate: TemplatePortalDirective;
 

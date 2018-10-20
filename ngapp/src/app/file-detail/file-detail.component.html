@@ -1,6 +1,6 @@
 <div class="complexity-container">
-    <div *ngFor="let item of data">
-        <cm-complexity-item [item]="item"></cm-complexity-item>
+    <div *ngFor="let item of data; even as even">
+        <cm-complexity-item [item]="item" [even]="even"></cm-complexity-item>
     </div>
 </div>
 
