@@ -26,6 +26,7 @@ export class FileItemComponent {
 
         const overlayConfig = new OverlayConfig({
             hasBackdrop: true,
+            width: '90%',
             scrollStrategy: this.overlay.scrollStrategies.block(),
             positionStrategy
         });

@@ -95,7 +95,22 @@
         </div>
 
         <ng-template cdk-portal #complexityTemplate="cdkPortal">
-            <div class="comlexity-detail">
+            <div class="comlexity-detail" [style.width]="'100%'">
+                <div class="navbar is-dark">
+                        <div class="navbar-brand">
+                    <div class="navbar-item">
+                            Cyclomatic Complexity
+                        </div>
+                    </div>
+
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <button class="delete" type="button" (click)="close()">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <cm-file-detail [complexity]="file.cc"></cm-file-detail>
             </div>
         </ng-template>
