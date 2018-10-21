@@ -1,0 +1,15 @@
+<div *ngIf="show" class="card text-light shadow-lg">
+    <div class="card-header bg-danger">
+        An update is available!
+    </div>
+
+    <div class="card-body bg-secondary">
+        Please reload the site to get the latest and the greatest.
+    </div>
+
+    <div class="card-footer bg-info">
+        <button class="btn btn-danger btn-sm" (click)="reload()">
+            Reload
+        </button>
+    </div>
+</div>
