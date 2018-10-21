@@ -16,7 +16,7 @@ export class AppComponent {
     _files: any = [];
     files: any = [];
 
-    order_by = 'cc';
+    order_by = 'mi';
     orders = [
         {key: 'cc', title: 'Complexity'},
         {key: 'mi', title: 'Maintainability'},
