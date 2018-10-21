@@ -96,6 +96,8 @@ def collect_all(project):
     metrics = []
     pyfiles = []
 
+    cached_metrics = load_metrics()
+
     with within_dir(project):
         pyfiles = [f for f in run('git ls-files').split() if f.endswith('.py')]
 
@@ -104,7 +106,7 @@ def collect_all(project):
 
     with Pool(num_pools) as pool:
         for i, result in enumerate(pool.imap_unordered(
-            partial(collect_metrics, project),
+            partial(collect_metrics, project, cached_metrics),
             pyfiles
         ), 1):
             print(f'\r{i / n_files:.2%} - {i}', end='')
@@ -114,7 +116,7 @@ def collect_all(project):
     return metrics
 
 
-def collect_metrics(project, pyfile):
+def collect_metrics(project, cached_metrics, pyfile):
     """
     Collect all the metrics for the python file in the project
     :param project: project root path
@@ -123,15 +125,36 @@ def collect_metrics(project, pyfile):
     """
     with within_dir(project):
         try:
+            commit = get_commit(pyfile)
+            if cached_metrics.get(pyfile, {}).get('commit') == commit['commit']:
+                return cached_metrics[pyfile]
+
             return {
                 'file': pyfile,
-                **get_commit(pyfile),
+                **commit,
                 **get_value(f'radon raw -j {pyfile}'),
                 **get_value(f'radon mi -j {pyfile}'),
                 'cc': get_value(f'radon cc -j {pyfile}') or [],
             }
+        except Exception as e:
+            print('\rfailed to get metrics of', pyfile, e)
+
+
+def load_metrics():
+    """
+    Load previously calculated metrics
+    :return: dict(filepath, metrics)
+    """
+    metrics = []
+
+    with within_dir(HERE):
+        try:
+            with open('code-metrics.json') as f:
+                metrics = json.loads(f.read())
         except Exception:
-            print('\rfailed to get git hash of', pyfile)
+            pass
+
+    return {x['file']: x for x in metrics}
 
 
 def save_metrics(data):
