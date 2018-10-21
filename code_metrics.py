@@ -29,7 +29,6 @@ The metrics will be found in the `code-metrics.json` file.
 
 import argparse
 import contextlib
-import glob
 import json
 import os
 import subprocess
@@ -98,7 +97,7 @@ def collect_all(project):
     pyfiles = []
 
     with within_dir(project):
-        pyfiles = glob.glob(f'**/*.py', recursive=True)
+        pyfiles = [f for f in run('git ls-files').split() if f.endswith('.py')]
 
     num_pools = max(os.cpu_count() - 1, 1)
 
