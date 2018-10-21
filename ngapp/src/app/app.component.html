@@ -25,6 +25,12 @@
             <input class="input" type="text" placeholder="Search"
                    [formControl]="qCtrl">
         </div>
+
+        <div class="navbar-item">
+            <button class="button is-light" (click)="showHelp()">
+                <strong>?</strong>
+            </button>
+        </div>
     </div>
 </nav>
 
@@ -33,5 +39,24 @@
         <cm-file-item [file]="file" [even]="even"></cm-file-item>
     </div>
 </cdk-virtual-scroll-viewport>
+
+<ng-template cdk-portal #helpTpl="cdkPortal">
+    <div [style.width]="'100%'">
+        <div class="navbar is-dark">
+            <div class="navbar-brand">
+                <div class="navbar-item">Help</div>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <button class="delete" (click)="closeHelp()">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <cm-help></cm-help>
+    </div>
+</ng-template>
 
 <!-- <router-outlet></router-outlet> -->

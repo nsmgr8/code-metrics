@@ -12,13 +12,15 @@ import { AppComponent } from './app.component';
 import { FileItemComponent } from './file-item/file-item.component';
 import { FileDetailComponent } from './file-detail/file-detail.component';
 import { ComplexityItemComponent } from './complexity-item/complexity-item.component';
+import { HelpComponent } from './help/help.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         FileItemComponent,
         FileDetailComponent,
-        ComplexityItemComponent
+        ComplexityItemComponent,
+        HelpComponent
     ],
     imports: [
         BrowserModule,

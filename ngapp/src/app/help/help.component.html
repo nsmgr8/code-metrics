@@ -1,0 +1,149 @@
+<div class="help-container">
+    <div class="box is-radiusless content">
+        <p>
+            Code metrics shows some metrics about python code files. The
+            metrics shown here are as following:
+        </p>
+        <ol>
+            <li>
+                Line counts
+                <ul>
+                    <li>
+                        LOC: Total lines in the file
+                    </li>
+                    <li>
+                        LLOC: Logical code line in the file
+                    </li>
+                    <li>
+                        Comments: number of comments line in the file
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="https://radon.readthedocs.io/en/latest/intro.html#maintainability-index"
+                    target="_blank" rel="noopener">
+                    Maintainability index
+                </a>
+                <p>
+                    Maintainability Index is a software metric which measures
+                    how maintainable (easy to support and change) the source
+                    code is. The maintainability index is calculated as
+                    a factored formula consisting of SLOC (Source Lines Of
+                    Code), Cyclomatic Complexity and Halstead volume.
+                </p>
+                <p>
+                    The rank is as following:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Score</th>
+                            <th>Rank</th>
+                            <th>Maintainability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>100 - 20</td>
+                            <td>
+                                <div class="tag tag-value is-success">A</div>
+                            </td>
+                            <td>Very High</td>
+                        </tr>
+                        <tr>
+                            <td>19 - 10</td>
+                            <td>
+                                <div class="tag tag-value is-warning">B</div>
+                            </td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>9 - 0</td>
+                            <td>
+                                <div class="tag tag-value is-danger">C</div>
+                            </td>
+                            <td>Extremely low</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                <a href="https://radon.readthedocs.io/en/latest/intro.html#cyclomatic-complexity"
+                    target="_blank" rel="noopener">
+                    Cyclomatics complexity
+                </a>
+                <p>
+                    Cyclomatic Complexity corresponds to the number of
+                    decisions a block of code contains plus 1. This number
+                    (also called McCabe number) is equal to the number of
+                    linearly independent paths through the code. This number
+                    can be used as a guide when testing conditional logic in
+                    blocks.
+                </p>
+                <p>
+                    The rank is as following:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Score</th>
+                            <th>Rank</th>
+                            <th>Risk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 - 5</td>
+                            <td>
+                                <div class="tag tag-value is-success">A</div>
+                            </td>
+                            <td>low - simple block</td>
+                        </tr>
+                        <tr>
+                            <td>6 - 10</td>
+                            <td>
+                                <div class="tag tag-value is-primary">B</div>
+                            </td>
+                            <td>low - well structured and stable block</td>
+                        </tr>
+                        <tr>
+                            <td>11 - 20</td>
+                            <td>
+                                <div class="tag tag-value is-link">C</div>
+                            </td>
+                            <td>moderate - slightly complex block</td>
+                        </tr>
+                        <tr>
+                            <td>21 - 30</td>
+                            <td>
+                                <div class="tag tag-value is-info">D</div>
+                            </td>
+                            <td>more than moderate - more complex block</td>
+                        </tr>
+                        <tr>
+                            <td>31 - 40</td>
+                            <td>
+                                <div class="tag tag-value is-warning">E</div>
+                            </td>
+                            <td>high - complex block, alarming</td>
+                        </tr>
+                        <tr>
+                            <td>41+</td>
+                            <td>
+                                <div class="tag tag-value is-danger">F</div>
+                            </td>
+                            <td>very high - error-prone, unstable block</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                Last modified time
+                <p>
+                    The git commit hash and the date of the last cmodification
+                    of the file.
+                </p>
+            </li>
+        </ol>
+    </div>
+</div>
