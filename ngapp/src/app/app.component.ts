@@ -17,6 +17,8 @@ export class AppComponent {
     _files: any = [];
     files: any = [];
 
+    meta;
+
     order_by = 'mi';
     orders = [
         {key: 'cc', title: 'Complexity'},
@@ -47,7 +49,9 @@ export class AppComponent {
         });
     }
 
-    setData(data) {
+    setData({meta, data}: any) {
+        this.meta = meta;
+
         this._files = data.map(x => {
             let cc = 0, rank = '';
             try {
@@ -67,6 +71,7 @@ export class AppComponent {
                 cc_rank: rank
             };
         });
+
         this.orderData();
     }
 
