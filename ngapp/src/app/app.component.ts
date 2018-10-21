@@ -2,7 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
 
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import { switchMap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { MetricsService } from './metrics.service';
 import { ModalService } from './modal.service';
@@ -33,9 +34,9 @@ export class AppComponent {
         private metricsService: MetricsService,
         private modalService: ModalService
     ) {
-        this.metricsService.getMetrics().subscribe(
-            data => this.setData(data)
-        );
+        timer(100, 5 * 60 * 1000).pipe(
+            switchMap(() => this.metricsService.getMetrics())
+        ).subscribe(data => this.setData(data));
 
         this.qCtrl.valueChanges.pipe(
             debounceTime(500),
