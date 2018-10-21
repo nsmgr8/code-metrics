@@ -7,7 +7,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
-import { AppRoutingModule } from './app-routing.module';
+// import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FileItemComponent } from './file-item/file-item.component';
 import { FileDetailComponent } from './file-detail/file-detail.component';
@@ -28,7 +28,7 @@ import { ComplexityItemComponent } from './complexity-item/complexity-item.compo
         OverlayModule,
         PortalModule,
         ScrollingModule,
-        AppRoutingModule
+        // AppRoutingModule
     ],
     providers: [],
     bootstrap: [AppComponent]
