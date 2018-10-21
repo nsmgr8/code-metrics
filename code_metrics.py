@@ -145,7 +145,7 @@ def load_metrics():
     Load previously calculated metrics
     :return: dict(filepath, metrics)
     """
-    metrics = []
+    metrics = {}
 
     with within_dir(HERE):
         try:
@@ -154,27 +154,44 @@ def load_metrics():
         except Exception:
             pass
 
-    return {x['file']: x for x in metrics}
+    return {x['file']: x for x in metrics.get('data', [])}
 
 
-def save_metrics(data):
+def save_metrics(data, meta):
     """
     Save the data to a json file
     :param data: a json serialisable dict
+    :param meta: metadata
     """
     with within_dir(HERE):
         with open('code-metrics.json', 'w') as f:
-            f.write(json.dumps(data))
+            f.write(json.dumps({
+                'data': data,
+                'meta': meta,
+            }))
 
 
-def main(project):
+def collect_meta(project, name):
+    """
+    Get metadata for the project
+    :param project: project path
+    :param name: the name of the project
+    """
+    name = name or os.path.basename(project.strip('/'))
+    return {
+        'name': name,
+    }
+
+
+def main(project, name):
     """
     The main entry of the program
     :param project: the project root path
     """
     project = os.path.expanduser(project)
     data = collect_all(project)
-    save_metrics(data)
+    meta = collect_meta(project, name)
+    save_metrics(data, meta)
 
 
 if __name__ == '__main__':
@@ -184,6 +201,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument('project', help='path to the project')
+    parser.add_argument('-n', '--name', help='name of the project')
     parser.add_argument('-v', '--verbose', action='store_true')
 
     args = parser.parse_args()
@@ -191,4 +209,4 @@ if __name__ == '__main__':
     if not args.verbose:
         print = lambda *args, **kwargs: 0
 
-    main(args.project)
+    main(args.project, args.name)
