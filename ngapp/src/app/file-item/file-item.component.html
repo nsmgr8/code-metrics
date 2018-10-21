@@ -17,7 +17,7 @@
                     </div>
                 </div>
 
-                <div class="control">
+                <div class="control" *ngIf="file.cc_rank !== ''">
                     <div class="tags has-addons is-marginless">
                         <span class="tag">
                             Complexity
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="tags">
+            <div class="tags" *ngIf="file.cc_rank !== ''">
                 <button class="button is-small is-outlined"
                         (click)="open()">
                     Show Cyclomatic Complexity
