@@ -100,13 +100,14 @@ def collect_all(project):
         pyfiles = [f for f in run('git ls-files').split() if f.endswith('.py')]
 
     num_pools = max(os.cpu_count() - 1, 1)
+    n_files = len(pyfiles)
 
     with Pool(num_pools) as pool:
         for i, result in enumerate(pool.imap_unordered(
             partial(collect_metrics, project),
             pyfiles
-        )):
-            print(f'\r{i}', end='')
+        ), 1):
+            print(f'\r{i / n_files:.2%} - {i}', end='')
             if result:
                 metrics.append(result)
 
