@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
+
+import { ModalService } from '../modal.service';
 
 @Component({
     selector: 'cm-file-item',
@@ -13,31 +14,15 @@ export class FileItemComponent {
 
     @ViewChild('complexityTemplate') complexityTemplate: TemplatePortalDirective;
 
-    overlayRef: OverlayRef;
-
     constructor(
-        private overlay: Overlay
+        private modalService: ModalService
     ) { }
 
     open() {
-        const positionStrategy = this.overlay.position()
-            .global()
-            .centerHorizontally()
-            .centerVertically();
-
-        const overlayConfig = new OverlayConfig({
-            hasBackdrop: true,
-            width: '90%',
-            scrollStrategy: this.overlay.scrollStrategies.block(),
-            positionStrategy
-        });
-
-        this.overlayRef = this.overlay.create(overlayConfig);
-        this.overlayRef.attach(this.complexityTemplate);
-        this.overlayRef.backdropClick().subscribe(_ => this.overlayRef.dispose());
+        this.modalService.open(this.complexityTemplate);
     }
 
     close() {
-        this.overlayRef.dispose();
+        this.modalService.close();
     }
 }

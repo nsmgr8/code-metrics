@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortalDirective } from '@angular/cdk/portal';
 
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 import { MetricsService } from './metrics.service';
+import { ModalService } from './modal.service';
 
 @Component({
     selector: 'app-root',
@@ -27,12 +27,11 @@ export class AppComponent {
 
     qCtrl = new FormControl();
 
-    overlayRef: OverlayRef;
     @ViewChild('helpTpl') helpTpl: TemplatePortalDirective;
 
     constructor(
         private metricsService: MetricsService,
-        private overlay: Overlay
+        private modalService: ModalService
     ) {
         this.metricsService.getMetrics().subscribe(
             data => this.setData(data)
@@ -111,24 +110,10 @@ export class AppComponent {
     }
 
     showHelp() {
-        const positionStrategy = this.overlay.position()
-            .global()
-            .centerHorizontally()
-            .centerVertically();
-
-        const overlayConfig = new OverlayConfig({
-            hasBackdrop: true,
-            width: '90%',
-            scrollStrategy: this.overlay.scrollStrategies.block(),
-            positionStrategy
-        });
-
-        this.overlayRef = this.overlay.create(overlayConfig);
-        this.overlayRef.attach(this.helpTpl);
-        this.overlayRef.backdropClick().subscribe(_ => this.overlayRef.dispose());
+        this.modalService.open(this.helpTpl);
     }
 
     closeHelp() {
-        this.overlayRef.dispose();
+        this.modalService.close();
     }
 }
